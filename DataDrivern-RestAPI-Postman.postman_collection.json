@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "c4222063-b695-454e-989e-43f8923327e2",
+		"name": "DataDrivern-RestAPI-Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create new record in database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Headers Area\r",
+							"pm.test('Check Content-Type',()=>{\r",
+							"    pm.response.to.be.header('Content-Type','text/html; charset=UTF-8');\r",
+							"});\r",
+							"\r",
+							"//Body Area\r",
+							"tests['Validating Status Code'] = responseCode.code ==200;\r",
+							"tests['Validating Response Body'] =  responseBody.has('status','data','message');\r",
+							"\r",
+							"var response = JSON.parse(responseBody);\r",
+							"\r",
+							"//Status Message\r",
+							"tests['Validating status'] = response.status == 'success';\r",
+							"\r",
+							"//Per message\r",
+							"tests['Validating message'] = response.message == 'Successfully! Record has been added.';\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"salary\": \"{{salary}}\",\r\n    \"age\": \"{{age}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/create",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
